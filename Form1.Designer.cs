@@ -56,12 +56,21 @@
             this.Priority = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ArrivalTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pageOutput = new System.Windows.Forms.TabPage();
+            this.buttonClear2 = new System.Windows.Forms.Button();
+            this.dataGridViewOutput = new System.Windows.Forms.DataGridView();
+            this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RunningId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RunningProirity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RunningArrival = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RunningRemaining = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.pageInput.SuspendLayout();
             this.panelChoice.SuspendLayout();
             this.panelPreemptive.SuspendLayout();
             this.panelData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInput)).BeginInit();
+            this.pageOutput.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOutput)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -318,6 +327,8 @@
             // 
             // pageOutput
             // 
+            this.pageOutput.Controls.Add(this.buttonClear2);
+            this.pageOutput.Controls.Add(this.dataGridViewOutput);
             this.pageOutput.Location = new System.Drawing.Point(4, 22);
             this.pageOutput.Name = "pageOutput";
             this.pageOutput.Padding = new System.Windows.Forms.Padding(3);
@@ -325,6 +336,55 @@
             this.pageOutput.TabIndex = 1;
             this.pageOutput.Text = "Output";
             this.pageOutput.UseVisualStyleBackColor = true;
+            // 
+            // buttonClear2
+            // 
+            this.buttonClear2.Location = new System.Drawing.Point(558, 6);
+            this.buttonClear2.Name = "buttonClear2";
+            this.buttonClear2.Size = new System.Drawing.Size(69, 68);
+            this.buttonClear2.TabIndex = 1;
+            this.buttonClear2.Text = "Clear list";
+            this.buttonClear2.UseVisualStyleBackColor = true;
+            this.buttonClear2.Click += new System.EventHandler(this.ButtonClear2_Click);
+            // 
+            // dataGridViewOutput
+            // 
+            this.dataGridViewOutput.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewOutput.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Time,
+            this.RunningId,
+            this.RunningProirity,
+            this.RunningArrival,
+            this.RunningRemaining});
+            this.dataGridViewOutput.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewOutput.Name = "dataGridViewOutput";
+            this.dataGridViewOutput.Size = new System.Drawing.Size(546, 383);
+            this.dataGridViewOutput.TabIndex = 0;
+            // 
+            // Time
+            // 
+            this.Time.HeaderText = "Time";
+            this.Time.Name = "Time";
+            // 
+            // RunningId
+            // 
+            this.RunningId.HeaderText = "ID";
+            this.RunningId.Name = "RunningId";
+            // 
+            // RunningProirity
+            // 
+            this.RunningProirity.HeaderText = "Priority";
+            this.RunningProirity.Name = "RunningProirity";
+            // 
+            // RunningArrival
+            // 
+            this.RunningArrival.HeaderText = "Arrival time";
+            this.RunningArrival.Name = "RunningArrival";
+            // 
+            // RunningRemaining
+            // 
+            this.RunningRemaining.HeaderText = "Remaining time";
+            this.RunningRemaining.Name = "RunningRemaining";
             // 
             // MainForm
             // 
@@ -347,6 +407,8 @@
             this.panelData.ResumeLayout(false);
             this.panelData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInput)).EndInit();
+            this.pageOutput.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOutput)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -381,6 +443,13 @@
         private System.Windows.Forms.Panel panelPreemptive;
         private System.Windows.Forms.Panel panelChoice;
         private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonClear2;
+        private System.Windows.Forms.DataGridView dataGridViewOutput;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Time;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RunningId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RunningProirity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RunningArrival;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RunningRemaining;
     }
 }
 

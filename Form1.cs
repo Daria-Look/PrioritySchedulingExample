@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace PriorityScheduling
 {    
@@ -32,16 +33,15 @@ namespace PriorityScheduling
 
         private void ButtonClear_Click(object sender, EventArgs e)
         {
-            // the best method I have ever seen is below as a comment
-            // it deletes selected rows in datagridview
-            /*
+            /* the best method I have ever seen is below as a comment
+             * it deletes selected rows in datagridview 
              * foreach (DataGridViewRow item in this.dataGridViewInput.SelectedRows)
             {
                 dataGridViewInput.Rows.RemoveAt(item.Index);
             }
             */
 
-            // make the history clear
+            // make all the history clear
             dataGridViewInput.Rows.Clear();
             id = 0;
             timeSlice = -1;
@@ -52,13 +52,15 @@ namespace PriorityScheduling
 
         private void AddingToList()
         {
-            foreach (DataGridViewRow row in dataGridViewInput.Rows)
-            {
+            //foreach (DataGridViewRow row in dataGridViewInput.Rows) // maybe
+            // using all the values excluding the last - it has null anywhere
+            for (int i = 0; i < dataGridViewInput.Rows.Count - 1; i++) 
+            {  
                 // get converted values
-                id = Convert.ToInt32(row.Cells[0].Value);
-                timeCpu = Convert.ToInt32(row.Cells[1].Value);
-                priority = Convert.ToInt32(row.Cells[2].Value);
-                timeArrival = Convert.ToInt32(row.Cells[3].Value);
+                id = Convert.ToInt32(dataGridViewInput.Rows[i].Cells[0].Value);
+                timeCpu = Convert.ToInt32(dataGridViewInput.Rows[i].Cells[1].Value);
+                priority = Convert.ToInt32(dataGridViewInput.Rows[i].Cells[2].Value);
+                timeArrival = Convert.ToInt32(dataGridViewInput.Rows[i].Cells[3].Value);
 
                 // set values
                 Process process = new Process(id, timeCpu, priority, timeArrival);
@@ -68,7 +70,21 @@ namespace PriorityScheduling
 
         private void NonPreemptiveNotSjf()
         {
-            
+            int systemTime = 0;
+            while (list.Count() != 0)
+            {
+                if (list[0].timeCpuProcess > 0)
+                {
+                    systemTime++;
+                    list[0].timeCpuProcess--;
+                    dataGridViewOutput.Rows.Add(systemTime, list[0].idProcess, list[0].priorityProcess);
+                }
+                else
+                {
+                    list.RemoveAt(0);
+                }
+            }
+
         }
 
         private void NonPreemptiveSjf()
@@ -91,6 +107,24 @@ namespace PriorityScheduling
             AddingToList();
             if (timeSwitch == -1 && timeSlice == -1 && !isSjf)
             {
+                list = list.OrderBy(x => x.timeArrivalProcess)
+                    .ThenBy(x => x.priorityProcess)
+                    .ToList();
+
+                // only arrival time sort
+                /*list.Sort(delegate (Process x, Process y)
+                {
+                    return (x.timeArrivalProcess.CompareTo(y.timeArrivalProcess));
+                }
+                );*/
+
+                // useful for debug not for work
+                foreach (Process process in list)
+                {
+                    Console.WriteLine(process.timeArrivalProcess.ToString());
+                    Console.WriteLine(process.priorityProcess.ToString());
+                }
+
                 NonPreemptiveNotSjf();                
             }
             else if (timeSwitch == -1 && timeSlice == -1 && isSjf)
@@ -105,6 +139,11 @@ namespace PriorityScheduling
             {
                 PreemptiveSjf();
             }
+        }
+
+        private void ButtonClear2_Click(object sender, EventArgs e)
+        {
+            dataGridViewOutput.Rows.Clear();
         }
 
         private void MainForm_Load(object sender, EventArgs e)

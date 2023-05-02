@@ -8,12 +8,16 @@ namespace PriorityScheduling
 {
     internal class Process
     {
+        public int idProcess;
+        public int timeArrivalProcess;
+        public int priorityProcess;
+        public int timeCpuProcess;
         public Process(int id, int timeCpu, int priority, int timeArrival) 
         { 
-            int idProcess = id;
-            int timeArrivalProcess = timeArrival;
-            int priorityProcess = priority;
-            int timeCpuProcess = timeCpu;
+            idProcess = id;
+            timeArrivalProcess = timeArrival;
+            priorityProcess = priority;
+            timeCpuProcess = timeCpu;
         }
 
     }
