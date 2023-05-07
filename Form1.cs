@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace PriorityScheduling
 {    
@@ -68,28 +69,68 @@ namespace PriorityScheduling
             }
         }
 
-        private void NonPreemptiveNotSjf()
+        private void NonPreemptiveNotSjf() // done!
         {
             int systemTime = 0;
             while (list.Count() != 0)
             {
-                if (list[0].timeCpuProcess > 0)
+                // fill datagridview
+                while(list[0].timeCpuProcess > 0)
                 {
                     systemTime++;
                     list[0].timeCpuProcess--;
-                    dataGridViewOutput.Rows.Add(systemTime, list[0].idProcess, list[0].priorityProcess);
+                    dataGridViewOutput.Rows.Add(systemTime, list[0].idProcess, list[0].priorityProcess, list[0].timeCpuProcess);
                 }
-                else
+
+                list.RemoveAt(0);
+
+                // if process already here, make time == 0
+                for (int i = 0; i < list.Count; i++)
                 {
-                    list.RemoveAt(0);
+                    if (systemTime >= list[i].timeArrivalProcess)
+                    {
+                        list[i].timeArrivalProcess = 0;
+                    }
                 }
+
+                // sort processes
+                list = list.OrderBy(x => x.timeArrivalProcess)
+                    .ThenBy(x => x.priorityProcess)
+                    .ToList();
             }
 
         }
 
-        private void NonPreemptiveSjf()
+        private void NonPreemptiveSjf() // done!
         {
+            int systemTime = 0;
+            while (list.Count() != 0)
+            {
+                // fill datagridview
+                while (list[0].timeCpuProcess > 0)
+                {
+                    systemTime++;
+                    list[0].timeCpuProcess--;
+                    dataGridViewOutput.Rows.Add(systemTime, list[0].idProcess, list[0].priorityProcess, list[0].timeCpuProcess);
+                }
 
+                list.RemoveAt(0);
+
+                // if process already here, make time == 0
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (systemTime >= list[i].timeArrivalProcess)
+                    {
+                        list[i].timeArrivalProcess = 0;
+                    }
+                }
+
+                // sort processes
+                list = list.OrderBy(x => x.timeArrivalProcess)
+                    .ThenBy(x => x.priorityProcess)
+                    .ThenBy(x => x.timeCpuProcess)
+                    .ToList();
+            }
         }
 
         private void PreemptiveNotSjf()
@@ -108,9 +149,8 @@ namespace PriorityScheduling
             if (timeSwitch == -1 && timeSlice == -1 && !isSjf)
             {
                 list = list.OrderBy(x => x.timeArrivalProcess)
-                    .ThenBy(x => x.priorityProcess)
-                    .ToList();
-
+                        .ThenBy(x => x.priorityProcess)
+                        .ToList();
                 // only arrival time sort
                 /*list.Sort(delegate (Process x, Process y)
                 {
@@ -119,16 +159,20 @@ namespace PriorityScheduling
                 );*/
 
                 // useful for debug not for work
-                foreach (Process process in list)
+                /*foreach (Process process in list)
                 {
                     Console.WriteLine(process.timeArrivalProcess.ToString());
                     Console.WriteLine(process.priorityProcess.ToString());
-                }
+                }*/
 
                 NonPreemptiveNotSjf();                
             }
             else if (timeSwitch == -1 && timeSlice == -1 && isSjf)
             {
+                list = list.OrderBy(x => x.timeArrivalProcess)
+                        .ThenBy(x => x.priorityProcess)
+                        .ThenBy(x => x.timeCpuProcess)
+                        .ToList();
                 NonPreemptiveSjf();
             }
             else if (timeSwitch != -1 && timeSlice != -1 && !isSjf)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PriorityScheduling
 {
-    internal class Process
+    public class Process
     {
         public int idProcess;
         public int timeArrivalProcess;
@@ -21,4 +21,5 @@ namespace PriorityScheduling
         }
 
     }
+
 }

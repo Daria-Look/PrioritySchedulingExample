@@ -61,7 +61,6 @@
             this.Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RunningId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RunningProirity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RunningArrival = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RunningRemaining = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.pageInput.SuspendLayout();
@@ -339,9 +338,9 @@
             // 
             // buttonClear2
             // 
-            this.buttonClear2.Location = new System.Drawing.Point(558, 6);
+            this.buttonClear2.Location = new System.Drawing.Point(458, 6);
             this.buttonClear2.Name = "buttonClear2";
-            this.buttonClear2.Size = new System.Drawing.Size(69, 68);
+            this.buttonClear2.Size = new System.Drawing.Size(169, 36);
             this.buttonClear2.TabIndex = 1;
             this.buttonClear2.Text = "Clear list";
             this.buttonClear2.UseVisualStyleBackColor = true;
@@ -354,11 +353,10 @@
             this.Time,
             this.RunningId,
             this.RunningProirity,
-            this.RunningArrival,
             this.RunningRemaining});
             this.dataGridViewOutput.Location = new System.Drawing.Point(6, 6);
             this.dataGridViewOutput.Name = "dataGridViewOutput";
-            this.dataGridViewOutput.Size = new System.Drawing.Size(546, 383);
+            this.dataGridViewOutput.Size = new System.Drawing.Size(446, 383);
             this.dataGridViewOutput.TabIndex = 0;
             // 
             // Time
@@ -375,11 +373,6 @@
             // 
             this.RunningProirity.HeaderText = "Priority";
             this.RunningProirity.Name = "RunningProirity";
-            // 
-            // RunningArrival
-            // 
-            this.RunningArrival.HeaderText = "Arrival time";
-            this.RunningArrival.Name = "RunningArrival";
             // 
             // RunningRemaining
             // 
@@ -448,7 +441,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Time;
         private System.Windows.Forms.DataGridViewTextBoxColumn RunningId;
         private System.Windows.Forms.DataGridViewTextBoxColumn RunningProirity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RunningArrival;
         private System.Windows.Forms.DataGridViewTextBoxColumn RunningRemaining;
     }
 }
